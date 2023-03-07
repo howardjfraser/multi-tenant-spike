@@ -4,13 +4,18 @@ Company.destroy_all
 abc = Company.create! name: "ABC Co"
 xyz = Company.create! name: "XYZ Co"
 
-abc.users.create! name: "mick"
-abc.users.create! name: "keith"
+abc.users.create! name: Faker::Name.first_name
+abc.users.create! name: Faker::Name.first_name
 
-xyz.users.create! name: "john"
-xyz.users.create! name: "paul"
+xyz.users.create! name: Faker::Name.first_name
+xyz.users.create! name: Faker::Name.first_name
 
-billy = User.create! name: "billy"
+multi = User.create! name: Faker::Name.first_name
 
-abc.users << billy
-xyz.users << billy
+abc.users << multi
+xyz.users << multi
+
+abc.projects.create! name: Faker::Company.bs
+abc.projects.create! name: Faker::Company.bs
+
+xyz.projects.create! name: Faker::Company.bs
