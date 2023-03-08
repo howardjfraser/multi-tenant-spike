@@ -1,3 +1,4 @@
+# could rename to Tenanted?
 module CompanyOwnable
   extend ActiveSupport::Concern
 

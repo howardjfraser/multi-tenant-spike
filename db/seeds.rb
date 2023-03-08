@@ -1,3 +1,5 @@
+# for now uncomment `include CompanyOwnable`` in Project to make this work
+
 Company.destroy_all
 User.destroy_all
 Project.destroy_all
