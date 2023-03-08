@@ -5,7 +5,7 @@ class ProjectTest < ActiveSupport::TestCase
   include ::WithTenant
 
   def setup
-    super
+    super # initialize Current otherwise next line will fail
     @project = FactoryBot.create(:project)
   end
 

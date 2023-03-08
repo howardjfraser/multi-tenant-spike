@@ -1,6 +1,5 @@
+# cannot be tenanted - belongs to many companies...
 class User < ApplicationRecord
-  # cannot be tenanted - belongs to many companies...
-
   has_many :company_users
   has_many :companies, through: :company_users, dependent: :destroy
 end

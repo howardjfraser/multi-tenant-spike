@@ -1,3 +1,4 @@
+# TODO: should this be tenanted?
 class ProjectStakeholder < ApplicationRecord
   belongs_to :project
   belongs_to :stakeholder

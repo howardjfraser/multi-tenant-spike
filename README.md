@@ -17,7 +17,7 @@
 ## Questions
 
 - Should CompanyUser be tenanted? (User can’t be tenanted as has many Companies…)
-- Should join tables from tenanted to untenanted e.g. ProjectStakeholders be tenanted?
+- Should join tables from tenanted to untenanted e.g. ProjectStakeholders be tenanted? Probably. Note that even if PS is untenanted, you can't use it to get to other tenants projects `ProjectStakeholder.all.map(&:project)` returns nil for other tenant's projects.
 
 ## Seeds
 

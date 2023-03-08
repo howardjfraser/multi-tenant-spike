@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
 
   private
 
-  # TODO: this would come from logging in...
+  # TODO: this would happen as part of logging in / switching company
   def stub_company
     Current.user = User.unscoped.all.sample
     Current.company = Current.user.companies.first
