@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
 
   # TODO: this would come from logging in...
   def stub_company
-    Current.company = Company.first
-    Current.user = Company.first.users.first
+    Current.user = User.first
+    Current.company = User.first.companies.first
   end
 end

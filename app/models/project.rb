@@ -2,6 +2,9 @@ class Project < ApplicationRecord
   include CompanyOwnable
 
   belongs_to :company
+
+  has_many :project_stakeholders
+  has_many :stakeholders, through: :project_stakeholders, dependent: :destroy
 end
 
 # == Schema Information
