@@ -1,4 +1,6 @@
 class Project < ApplicationRecord
+  include CompanyOwnable
+
   belongs_to :company
 end
 
