@@ -1,5 +1,5 @@
 class Project < ApplicationRecord
-  include CompanyOwnable
+  include Tenanted
 
   belongs_to :company
 

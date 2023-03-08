@@ -1,5 +1,4 @@
-# could rename to Tenanted?
-module CompanyOwnable
+module Tenanted
   extend ActiveSupport::Concern
 
   included do

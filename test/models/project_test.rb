@@ -1,8 +1,8 @@
 require "test_helper"
-require "support/with_current_company"
+require "support/with_tenant"
 
 class ProjectTest < ActiveSupport::TestCase
-  include ::WithCurrentCompany
+  include ::WithTenant
 
   def setup
     super

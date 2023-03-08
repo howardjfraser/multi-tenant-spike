@@ -1,4 +1,4 @@
-# for now uncomment `include CompanyOwnable`` in Project to make this work
+# for now uncomment `include Tenanted`` in Project to make this work
 
 Company.destroy_all
 User.destroy_all
