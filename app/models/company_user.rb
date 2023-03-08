@@ -1,4 +1,6 @@
 class CompanyUser < ApplicationRecord
+  # should this be tenanted?
+
   belongs_to :company
   belongs_to :user
 end

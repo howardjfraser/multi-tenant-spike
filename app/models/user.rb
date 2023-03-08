@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include CompanyOwnable # TODO: do we want to do this?
+  # cannot be tenanted - belongs to many companies...
 
   has_many :company_users
   has_many :companies, through: :company_users, dependent: :destroy

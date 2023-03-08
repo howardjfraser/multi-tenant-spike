@@ -1,7 +1,16 @@
 require "test_helper"
 
 class CompanyTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    @company = companies(:one)
+  end
+
+  test "valid fixture" do
+    assert @company.valid?
+  end
+
+  test "create" do
+    c = Company.create! name: "name"
+    assert_equal "name", c.reload.name
+  end
 end
