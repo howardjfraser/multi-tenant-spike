@@ -18,10 +18,11 @@
 
 - Should CompanyUser be tenanted? (User can’t be tenanted as has many Companies…)
 - Should join tables from tenanted to untenanted e.g. ProjectStakeholders be tenanted? Probably. Note that even if PS is untenanted, you can't use it to get to other tenants projects `ProjectStakeholder.all.map(&:project)` returns nil for other tenant's projects.
+- Issues creating / deleting classes with associations to tenanted classes. E.g to delete a Company (untenanted) which has Projects (tenanted) you need to set Current.company, even if there are no Project instances. This is true even if there is no dependent destroy.
 
 ## Seeds
 
-- Hitting issues deleting Stakeholders. Can list / count them, but not delete. Something to do with indirect relation to a tenanted class? Still an issue if all instances of tenanted class have been deleted.
+- Issues creating / deleting, see above.
 
 ## Console
 

@@ -1,6 +1,6 @@
 class Stakeholder < ApplicationRecord
-  has_many :project_stakeholders
-  has_many :projects, through: :project_stakeholders, dependent: :destroy
+  has_many :project_stakeholders, dependent: :destroy
+  has_many :projects, through: :project_stakeholders
 end
 
 # == Schema Information

@@ -1,9 +1,17 @@
-# for now uncomment `include Tenanted`` in Project to make this work
+# NOTE: unscope tenanted classes to destroy_all
+Project.unscoped.destroy_all
 
-Company.destroy_all
+# NOTE: untenanted classes work normally
 User.destroy_all
-Project.destroy_all
 Stakeholder.destroy_all
+
+# NOTE: where untenanted classes have direct association with tenanted classes, need to
+# set Current.company to destroy? Even if no tenanted instances exist and there is no
+# dependent: :destroy.
+Company.all.each do |c|
+  Current.company = c
+  c.destroy!
+end
 
 abc = Company.create! name: "ABC Co"
 xyz = Company.create! name: "XYZ Co"
@@ -19,13 +27,15 @@ multi = User.create! name: Faker::Name.first_name
 abc.users << multi
 xyz.users << multi
 
-abc.projects.create! name: Faker::Company.bs
-abc.projects.create! name: Faker::Company.bs
-
-xyz.projects.create! name: Faker::Company.bs
-
-5.times do
+8.times do
   Stakeholder.create! name: Faker::Name.first_name
 end
+
+Current.company = abc
+abc.projects.create! name: Faker::Company.bs
+abc.projects.create! name: Faker::Company.bs
+
+Current.company = xyz
+xyz.projects.create! name: Faker::Company.bs
 
 Project.all.each { |p| p.stakeholders << Stakeholder.all.sample(4) }
