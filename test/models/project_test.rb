@@ -4,11 +4,12 @@ require "support/with_current_company"
 class ProjectTest < ActiveSupport::TestCase
   include ::WithCurrentCompany
 
-  setup do
-    @project = projects(:one)
+  def setup
+    super
+    @project = FactoryBot.create(:project)
   end
 
-  test "valid fixture" do
+  test "valid" do
     assert @project.valid?
   end
 

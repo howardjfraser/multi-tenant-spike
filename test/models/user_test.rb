@@ -2,10 +2,10 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   setup do
-    @user = users(:one)
+    @user = FactoryBot.create(:user)
   end
 
-  test "valid fixture" do
+  test "valid" do
     assert @user.valid?
   end
 
