@@ -4,10 +4,7 @@ class ProjectsTest < ApplicationSystemTestCase
   def setup
     super
     create_list(:project, 2)
-
-    Tenant.switch(Company.find_by(name: "second")) do
-      create(:project)
-    end
+    Tenant.switch(Company.find_by(name: "second")) { create(:project) }
   end
 
   test "index" do

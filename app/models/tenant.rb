@@ -18,7 +18,7 @@ class Tenant
     Current.company
   end
 
-  def detenant!
+  def self.detenant!
     Current.company = nil
   end
 
