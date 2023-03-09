@@ -17,4 +17,16 @@ class Tenant
   def self.current
     Current.company
   end
+
+  def self.all
+    current_company = Current.company
+
+    Company.all.each do |company|
+      Current.company = company
+
+      yield company if block_given?
+    end
+
+    Current.company = current_company
+  end
 end

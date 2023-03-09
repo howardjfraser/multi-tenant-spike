@@ -6,11 +6,13 @@ User.destroy_all
 Stakeholder.destroy_all
 
 # NOTE: where untenanted classes has_many with a tenanted class, you need to
-# set Current.company to destroy? Even if no tenanted instances exist and there is no
-# dependent: :destroy.
-Company.all.each do |c|
-  Tenant.switch(c) { c.destroy! }
-end
+# set Current.company to destroy, the untenanted class. Even if no tenanted instances
+# exist and there is no dependent: :destroy.
+# Company.all.each do |c|
+#   Tenant.switch(c) { c.destroy! }
+# end
+
+Tenant.all { |c| c.destroy! }
 
 abc = Company.create! name: "ABC Co"
 xyz = Company.create! name: "XYZ Co"
