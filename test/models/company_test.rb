@@ -2,7 +2,7 @@ require "test_helper"
 
 class CompanyTest < ActiveSupport::TestCase
   setup do
-    @company = FactoryBot.create(:company)
+    @company = create(:company)
   end
 
   test "valid fixture" do

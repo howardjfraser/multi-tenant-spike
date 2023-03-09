@@ -6,7 +6,7 @@ class ProjectTest < ActiveSupport::TestCase
 
   def setup
     super # initialize Current otherwise next line will fail
-    @project = FactoryBot.create(:project)
+    @project = create(:project)
   end
 
   test "valid" do

@@ -2,7 +2,7 @@ require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
   setup do
-    @user = FactoryBot.create(:user)
+    @user = create(:user)
   end
 
   test "valid" do
