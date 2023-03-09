@@ -18,7 +18,8 @@
 
 - Should CompanyUser be tenanted? (User can’t be tenanted as has many Companies…)
 - Should join tables from tenanted to untenanted e.g. ProjectStakeholders be tenanted? Note that even if join tables are untenanted, you can't use them to get to other tenants' projects `ProjectStakeholder.all.map(&:project)` returns nil for other tenant's projects. Going with no for now. They don't have any info. Adding company_id seems unnecessary.
-- To delete a Company (untenanted) which has Projects (tenanted) you need to set Current.company, even if there are no Project instances. This is true even if there is no dependent destroy. Seems a bit odd.
+- To delete an untenanted instance (e.g. Company) which has_many tenanted instances (e.g.Projects), you need to set Current.company. Even if there are no Project instances; even if there is no dependent destroy. Seems a bit odd, but errs on the side of too secure so seems okay.
+- One difference between this spike and Apartment is that with Apartment, you need to switch to a default tenant to write untenanted data. This happens a lot setting up tests, not sure about as a user running normally (CompanyUser? tbc). With Kolide (and similar) there is no concept of a public default tentant. Any user can write untenanted data.
 
 ## Seeds
 
