@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
 
   # NOTE: this would happen as part of logging in / switching company
   def stub_company
-    Current.user = User.unscoped.all.sample
-    Current.company = Current.user.companies.first
+    company_user = CompanyUser.first
+    Current.company = company_user.company
+    Current.user = company_user.user
   end
 end

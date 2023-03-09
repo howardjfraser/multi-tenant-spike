@@ -12,8 +12,10 @@ class ActiveSupport::TestCase
 
   # NOTE: by default Current.user is set for all tests. Better to be explicit?
   def setup
-    create(:company_user)
-    Tenant.switch!(Company.first)
+    create(:company_user, company: create(:company, name: "first"))
+    create(:company_user, company: create(:company, name: "second"))
+
+    Tenant.switch!(Company.find_by(name: "first"))
   end
 
   def teardown

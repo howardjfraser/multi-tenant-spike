@@ -1,9 +1,18 @@
 require "test_helper"
 
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
+  def setup
+    super
+    create_list(:project, 2)
+
+    Tenant.switch(Company.find_by(name: "second")) do
+      create(:project)
+    end
+  end
+
   test "index" do
-    create_list(:project, 3)
     get projects_url
-    assert_select "#count", "3 projects found"
+    assert_select "h1", "Projects"
+    assert_select "#count", "2 projects found"
   end
 end
