@@ -2,20 +2,19 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
-# class Minitest::Unit::TestCase
-#   include FactoryBot::Syntax::Methods
-# end
-
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  # fixtures :all
-
   # Add more helper methods to be used by all tests here...
+
+  # NOTE: by default Current.user is set for all tests. Better to be explicit?
+  def setup
+    create(:company_user)
+    Tenant.switch!(Company.first)
+  end
 
   def teardown
     Current.reset
