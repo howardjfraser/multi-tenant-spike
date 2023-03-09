@@ -18,6 +18,10 @@ class Tenant
     Current.company
   end
 
+  def detenant!
+    Current.company = nil
+  end
+
   def self.all
     current_company = Current.company
 
