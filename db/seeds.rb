@@ -5,12 +5,11 @@ Project.unscoped.destroy_all
 User.destroy_all
 Stakeholder.destroy_all
 
-# NOTE: where untenanted classes have direct association with tenanted classes, need to
+# NOTE: where untenanted classes has_many with a tenanted class, you need to
 # set Current.company to destroy? Even if no tenanted instances exist and there is no
 # dependent: :destroy.
 Company.all.each do |c|
-  Current.company = c
-  c.destroy!
+  Tenant.switch(c) { c.destroy! }
 end
 
 abc = Company.create! name: "ABC Co"
@@ -31,11 +30,14 @@ xyz.users << multi
   Stakeholder.create! name: Faker::Name.first_name
 end
 
-Current.company = abc
-abc.projects.create! name: Faker::Company.bs
-abc.projects.create! name: Faker::Company.bs
+Tenant.switch(abc) do
+  abc.projects.create! name: Faker::Company.bs
+  abc.projects.create! name: Faker::Company.bs
+end
 
-Current.company = xyz
-xyz.projects.create! name: Faker::Company.bs
+Tenant.switch(xyz) do
+  xyz.projects.create! name: Faker::Company.bs
+end
 
-Project.all.each { |p| p.stakeholders << Stakeholder.all.sample(4) }
+# NOTE: legit use of unscoped for admin purposes...
+Project.unscoped.count { |p| p.stakeholders << Stakeholder.all.sample(4) }
