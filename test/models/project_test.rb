@@ -1,9 +1,6 @@
 require "test_helper"
-require "support/with_tenant"
 
 class ProjectTest < ActiveSupport::TestCase
-  include ::WithTenant
-
   def setup
     super # initialize Current otherwise next line will fail
     @project = create(:project)

@@ -20,7 +20,10 @@ class ActiveSupport::TestCase
     @second_user = create(:user)
     create(:company_user, company: @second_co, user: @second_user)
 
-    Tenant.switch!(Company.find_by(name: "first"))
+    Tenant.switch!(@first_co)
+
+    # TODO: find better home for this...
+    Current.user = @first_user
   end
 
   def teardown

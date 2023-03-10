@@ -1,9 +1,6 @@
 require "test_helper"
-require "support/with_tenant"
 
 class PostTest < ActiveSupport::TestCase
-  include WithTenant
-
   def setup
     super # initialize Current otherwise next line will fail
     @post = create(:post, user: Current.user, project: create(:project))
