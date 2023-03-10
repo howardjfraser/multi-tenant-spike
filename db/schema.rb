@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_001856) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_234554) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -27,6 +27,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_001856) do
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_company_users_on_company_id"
     t.index ["user_id"], name: "index_company_users_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.string "title"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_posts_on_company_id"
+    t.index ["project_id"], name: "index_posts_on_project_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "project_stakeholders", force: :cascade do |t|
@@ -46,6 +59,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_001856) do
     t.index ["company_id"], name: "index_projects_on_company_id"
   end
 
+  create_table "stakeholder_posts", force: :cascade do |t|
+    t.bigint "stakeholder_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_stakeholder_posts_on_post_id"
+    t.index ["stakeholder_id"], name: "index_stakeholder_posts_on_stakeholder_id"
+  end
+
   create_table "stakeholders", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -60,7 +82,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_001856) do
 
   add_foreign_key "company_users", "companies"
   add_foreign_key "company_users", "users"
+  add_foreign_key "posts", "companies"
+  add_foreign_key "posts", "projects"
+  add_foreign_key "posts", "users"
   add_foreign_key "project_stakeholders", "projects"
   add_foreign_key "project_stakeholders", "stakeholders"
   add_foreign_key "projects", "companies"
+  add_foreign_key "stakeholder_posts", "stakeholders"
 end

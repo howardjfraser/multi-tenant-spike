@@ -3,8 +3,13 @@ class Project < ApplicationRecord
 
   belongs_to :company
 
+  # NOTE: all company users are on all projects
+  has_many :users, through: :company
+
   has_many :project_stakeholders, dependent: :destroy
   has_many :stakeholders, through: :project_stakeholders
+
+  has_many :posts # dependent: ?
 end
 
 # == Schema Information

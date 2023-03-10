@@ -1,7 +1,9 @@
 # cannot be tenanted - belongs to many companies...
 class User < ApplicationRecord
-  has_many :company_users
-  has_many :companies, through: :company_users, dependent: :destroy
+  has_many :company_users, dependent: :destroy
+  has_many :companies, through: :company_users
+
+  has_many :posts # dependent: ? (soft delete)
 end
 
 # == Schema Information
