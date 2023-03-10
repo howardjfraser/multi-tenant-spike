@@ -1,5 +1,7 @@
 # NOTE: equivalent to Apartment helper class
 # TODO: should maybe live somewhere else...
+# TODO: should switches be restricted to those valid for Current.user
+# TODO: should we use Current for current_user?
 class Tenant
   def self.switch!(company)
     Current.company = company
