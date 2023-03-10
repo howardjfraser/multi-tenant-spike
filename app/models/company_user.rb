@@ -1,6 +1,7 @@
 # TODO: should this be tenanted?
 class CompanyUser < ApplicationRecord
-  belongs_to :company
+  include Tenanted
+
   belongs_to :user
 end
 

@@ -14,11 +14,17 @@ class ActiveSupport::TestCase
   def setup
     @first_co = create(:company, name: "first")
     @first_user = create(:user)
-    create(:company_user, company: @first_co, user: @first_user)
+
+    Tenant.switch(@first_co) do
+      create(:company_user, company: @first_co, user: @first_user)
+    end
 
     @second_co = create(:company, name: "second")
     @second_user = create(:user)
-    create(:company_user, company: @second_co, user: @second_user)
+
+    Tenant.switch(@second_co) do
+      create(:company_user, company: @second_co, user: @second_user)
+    end
 
     Tenant.switch!(@first_co)
 
