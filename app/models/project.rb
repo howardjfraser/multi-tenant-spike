@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   has_many :project_stakeholders, dependent: :destroy
   has_many :stakeholders, through: :project_stakeholders
 
-  has_many :posts # dependent: ?
+  has_many :posts, dependent: :destroy # TODO: soft delete
 end
 
 # == Schema Information

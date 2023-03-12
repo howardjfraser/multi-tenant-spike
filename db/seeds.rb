@@ -1,16 +1,12 @@
 # Resets
 
-# NOTE: 1) untenanted classes can be destroy_all'd normally 2) Tenanted should be
-# unscoped to destroy_all 3) where an untenanted class has_many with a tenanted class,
-# to destroy the untenanted class you need to set Current.company. Even if no tenanted
-# instances exist and there is no dependent: :destroy.
-
-Post.unscoped.destroy_all
-Project.unscoped.destroy_all
+# NOTE: this is more complicated than it might seem. To delete untenanted classes with associations
+# to tenanted classes you, need to set Current.company.
 
 Stakeholder.destroy_all
-User.destroy_all
-
+Tenant.all { |c| Project.destroy_all }
+Tenant.all { |c| CompanyUser.destroy_all }
+Tenant.all { |c| User.destroy_all }
 Tenant.all { |c| c.destroy! }
 
 # Creates
@@ -18,25 +14,17 @@ Tenant.all { |c| c.destroy! }
 abc = Company.create! name: "ABC Co"
 xyz = Company.create! name: "XYZ Co"
 
-abc.users.create! name: Faker::Name.first_name
-abc.users.create! name: Faker::Name.first_name
-
-xyz.users.create! name: Faker::Name.first_name
-xyz.users.create! name: Faker::Name.first_name
-
 multi = User.create! name: Faker::Name.first_name
 
-abc.users << multi
-xyz.users << multi
-
-8.times do
-  Stakeholder.create! name: Faker::Name.first_name
-end
+4.times { Stakeholder.create! name: Faker::Name.first_name }
 
 Tenant.switch(abc) do
-  # NOTE: both approaches set the company_id correctly
-  abc.projects.create! name: Faker::Company.bs
-  Project.create! name: Faker::Company.bs
+  2.times { abc.users.create! name: Faker::Name.first_name }
+  abc.users << multi
+
+  3.times do
+    Project.create!({name: Faker::Company.bs, stakeholders: Stakeholder.all.sample(2)})
+  end
 
   4.times do
     Post.create({
@@ -49,8 +37,11 @@ Tenant.switch(abc) do
 end
 
 Tenant.switch(xyz) do
-  xyz.projects.create! name: Faker::Company.bs
-end
+  2.times { abc.users.create! name: Faker::Name.first_name }
+  xyz.users << multi
 
-# NOTE: legit use of unscoped for admin purposes...
-Project.unscoped.each { |p| p.stakeholders << Stakeholder.all.sample(4) }
+  xyz.projects.create!({
+    name: Faker::Company.bs,
+    stakeholders: Stakeholder.all.sample(3)
+  })
+end

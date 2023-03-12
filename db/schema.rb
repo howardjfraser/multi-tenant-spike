@@ -59,15 +59,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_234554) do
     t.index ["company_id"], name: "index_projects_on_company_id"
   end
 
-  create_table "stakeholder_posts", force: :cascade do |t|
-    t.bigint "stakeholder_id", null: false
-    t.bigint "post_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_stakeholder_posts_on_post_id"
-    t.index ["stakeholder_id"], name: "index_stakeholder_posts_on_stakeholder_id"
-  end
-
   create_table "stakeholders", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -88,5 +79,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_234554) do
   add_foreign_key "project_stakeholders", "projects"
   add_foreign_key "project_stakeholders", "stakeholders"
   add_foreign_key "projects", "companies"
-  add_foreign_key "stakeholder_posts", "stakeholders"
 end
